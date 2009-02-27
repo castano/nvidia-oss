@@ -1,0 +1,7 @@
+#!/bin/sh
+
+tar zcvf nvidia-oss-`cat VERSION`.tar.gz \
+	--exclude '.*' --exclude debian --exclude '*~' --exclude buildpkg \
+	--exclude build --exclude data --exclude tags --exclude Makefile \
+	--exclude 'nvidia-oss-*.tar.gz' \
+	--transform 's,^,nvidia-oss/,' *
