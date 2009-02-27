@@ -1,10 +1,10 @@
-// This code is in the public domain -- castanyo@yahoo.es
+// This code is in the public domain -- castano@gmail.com
 
-#ifndef NVCORE_TEXTREADER_H
-#define NVCORE_TEXTREADER_H
+#ifndef NV_CORE_TEXTREADER_H
+#define NV_CORE_TEXTREADER_H
 
 #include <nvcore/Containers.h>
-#include <nvio/Stream.h>
+#include <nvcore/Stream.h>
 
 namespace nv
 {
@@ -34,4 +34,4 @@ private:
 
 } // nv namespace
 
-#endif // NVCORE_TEXTREADER_H
+#endif // NV_CORE_TEXTREADER_H

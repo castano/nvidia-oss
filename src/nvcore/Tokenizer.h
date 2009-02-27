@@ -1,11 +1,11 @@
-// This code is in the public domain -- castanyo@yahoo.es
+// This code is in the public domain -- castano@gmail.com
 
 #ifndef NV_CORE_TOKENIZER_H
 #define NV_CORE_TOKENIZER_H
 
 #include <nvcore/StrLib.h>
-#include <nvio/Stream.h>
-#include <nvio/TextReader.h>
+#include <nvcore/Stream.h>
+#include <nvcore/TextReader.h>
 
 namespace nv
 {
