@@ -33,7 +33,7 @@ namespace
 
 				if (symmetric) 
 				{
-					m_inverseDiagonal[x] = 1.0f / sqrt(fabs(elem));
+					m_inverseDiagonal[x] = 1.0f / sqrtf(fabsf(elem));
 				}
 				else 
 				{
