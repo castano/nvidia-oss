@@ -34,7 +34,9 @@ SET(CORE_SRCS
 	Tokenizer.h
 	Tokenizer.cpp
 	FileSystem.h
-	FileSystem.cpp)
+	FileSystem.cpp
+	Array2D.h
+	Array2D.cpp)
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -48,7 +50,7 @@ IF(MSVC AND NV_SYSTEM_PROCESSOR STREQUAL "AMD64")
     # For some reason the NMake generator doesn't work properly with the generated .obj source:
 	# it requires the absolute path. So this is a hack which worked as of cmake 2.6.0 patch 0
 	GET_FILENAME_COMPONENT(VSSCANF_ASM_INTDIR 
-	    "${nvio_BINARY_DIR}/CMakeFiles/nvio.dir" ABSOLUTE)
+	    "${nvcore_BINARY_DIR}/CMakeFiles/nvcore.dir" ABSOLUTE)
   ENDIF(MSVC_IDE)
   
   SET(VSSCANF_ASM_SRC "${CMAKE_CURRENT_SOURCE_DIR}/${VSSCANF_ASM_NAME}.masm")
@@ -85,4 +87,3 @@ INSTALL(TARGETS nvcore
 	RUNTIME DESTINATION bin
 	LIBRARY DESTINATION lib
 	ARCHIVE DESTINATION lib/static)
-
