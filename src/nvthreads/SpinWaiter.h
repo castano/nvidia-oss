@@ -10,7 +10,7 @@ namespace nv
 	// Spin wait helper class.
 	struct SpinWaiter
 	{
-		Waiter() : m_count(0) {}
+		SpinWaiter() : m_count(0) {}
 		
 		void backoff();
 		
