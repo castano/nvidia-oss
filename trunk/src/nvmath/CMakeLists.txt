@@ -15,7 +15,7 @@ SET(MATH_SRCS
 	Basis.h Basis.cpp
 	Triangle.h Triangle.cpp TriBox.cpp
 	Polygon.h Polygon.cpp
-#	TypeSerialization.h TypeSerialization.cpp
+	TypeSerialization.h TypeSerialization.cpp
 	Sparse.h Sparse.cpp
 	Solver.h Solver.cpp
 	KahanSum.h
