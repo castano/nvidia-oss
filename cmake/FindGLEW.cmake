@@ -38,6 +38,7 @@ ELSE (WIN32)
 		/usr/local/include
 		/sw/include
 		/opt/local/include
+		${GLEW_ROOT_DIR}/include
 		DOC "The directory where GL/glew.h resides")
 
 	FIND_LIBRARY( GLEW_LIBRARY
@@ -49,6 +50,7 @@ ELSE (WIN32)
 		/usr/local/lib
 		/sw/lib
 		/opt/local/lib
+		${GLEW_ROOT_DIR}/lib
 		DOC "The GLEW library")
 ENDIF (WIN32)
 
@@ -58,4 +60,3 @@ IF (GLEW_INCLUDE_PATH AND GLEW_LIBRARY)
 	SET(GLEW_FOUND "YES")
 ENDIF (GLEW_INCLUDE_PATH AND GLEW_LIBRARY)
 
-MARK_AS_ADVANCED(GLEW_INCLUDE_DIR)
