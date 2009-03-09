@@ -3,6 +3,7 @@ PROJECT(nvthreads)
 SET(THREADS_SRCS
 	nvthreads.h
 	Thread.h Thread.cpp
+	ThreadUtil.h ThreadUtil.cpp
 	ThreadLocalStorage.h ThreadLocalStorage.cpp
 	Mutex.h Mutex.cpp)
 

@@ -92,24 +92,15 @@ bool Thread::isRunning () const
 #endif
 }
 
-/*static*/ void Thread::threadLoop(Thread * thread)
+/*static*/ void Thread::spinWait(uint count)
 {
-	thread->run();
-	
-	// Reset thread handle.
-#if NV_OS_WIN32
-	thread->m->thread = NULL;
-#elif NV_OS_UNIX
-	thread->m->thread = 0;
-	pthread_exit(0);
-#endif
+	for (uint i = 0; i < count; i++) {}
 }
 
 /*static*/ void Thread::yield()
 {
 #if NV_OS_WIN32
 	SwitchToThread();
-	//Sleep(0); // @@ This is more portable.
 #elif NV_OS_UNIX
 	int result = sched_yield();
 	nvDebugCheck(result == 0);
@@ -122,5 +113,18 @@ bool Thread::isRunning () const
 	Sleep(ms);
 #elif NV_OS_UNIX
 	usleep(1000 * ms);
+#endif
+}
+
+/*static*/ void Thread::threadLoop(Thread * thread)
+{
+	thread->run();
+	
+	// Reset thread handle.
+#if NV_OS_WIN32
+	thread->m->thread = NULL;
+#elif NV_OS_UNIX
+	thread->m->thread = 0;
+	pthread_exit(0);
 #endif
 }

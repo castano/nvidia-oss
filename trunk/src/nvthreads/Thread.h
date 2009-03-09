@@ -21,15 +21,18 @@ namespace nv
 		void wait();
 
 		bool isRunning() const;
+
+		//static int threadId();
+	
+		static void spinWait(uint count);
+		static void yield();
+		static void sleep(uint ms);
 	
 	protected:
 		
 		static void threadLoop(Thread *);
 
 		virtual void run() = 0;
-
-		static void yield();
-		static void sleep(uint ms);
 	
 	private:
 		struct Private;
