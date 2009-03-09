@@ -2,10 +2,10 @@ PROJECT(nvthreads)
 
 SET(THREADS_SRCS
 	nvthreads.h
+	Mutex.h Mutex.cpp
+	SpinWaiter.h SpinWaiter.cpp
 	Thread.h Thread.cpp
-	ThreadUtil.h ThreadUtil.cpp
-	ThreadLocalStorage.h ThreadLocalStorage.cpp
-	Mutex.h Mutex.cpp)
+	ThreadLocalStorage.h ThreadLocalStorage.cpp)
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
