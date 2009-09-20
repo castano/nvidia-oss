@@ -22,9 +22,11 @@
 #if _MSC_VER < 1500
 #	define vsnprintf _vsnprintf
 #endif
-#define vsscanf _vsscanf
+#define sscanf nv_sscanf
+#define vsscanf nv_vsscanf
 #define chdir _chdir
 #define getcwd _getcwd 
+
 
 #define va_copy(a, b)	a = b
 
