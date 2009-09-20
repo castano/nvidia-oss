@@ -15,10 +15,10 @@
 #if NV_CC_MSVC
 // Declarations so that we don't have to include windows.h
 extern "C" {
-	__stdcall unsigned long TlsAlloc();
-	__stdcall void TlsFree(unsigned long idx);
-	__stdcall void TlsSetValue(unsigned long idx, void * ptr);
-	__stdcall void * TlsGetValue(unsigned long idx);
+	unsigned long __stdcall TlsAlloc();
+	void __stdcall TlsFree(unsigned long idx);
+	void __stdcall TlsSetValue(unsigned long idx, void * ptr);
+	void * __stdcall TlsGetValue(unsigned long idx);
 }
 #endif
 

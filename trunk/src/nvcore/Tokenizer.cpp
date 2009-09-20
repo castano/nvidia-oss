@@ -7,87 +7,11 @@
 #include <stdarg.h>	// va_list
 #include <stdlib.h>	// atof, atoi
 
+
 #if NV_CC_MSVC
-#if defined NV_CPU_X86
-/* vsscanf for Win32
- * Written 5/2003 by <mgix@mgix.com>
- * This code is in the Public Domain
- */
-
-#include <malloc.h> // alloca
-//#include <string.h>
-
-static int vsscanf(const char * buffer, const char * format, va_list argPtr)
-{
-	// Get an upper bound for the # of args
-	size_t count = 0;
-	const char *p = format;
-	while(1) {
-		char c = *(p++);
-		if(c==0) break;
-		if(c=='%' && (p[0]!='*' && p[0]!='%')) ++count;
-	}
-
-	// Make a local stack
-	size_t stackSize = (2+count)*sizeof(void*);
-	void **newStack = (void**)alloca(stackSize);
-
-	// Fill local stack the way sscanf likes it
-	newStack[0] = (void*)buffer;
-	newStack[1] = (void*)format;
-	memcpy(newStack+2, argPtr, count*sizeof(void*));
-
-	// @@ Use: CALL DWORD PTR [sscanf]
-	
-	// Warp into system sscanf with new stack
-	int result;
-	void *savedESP;
-	__asm
-	{
-		mov     savedESP, esp
-		mov     esp, newStack
-#if _MSC_VER >= 1400
-		call	DWORD PTR [sscanf_s]
-#else
-		call	DWORD PTR [sscanf]
-#endif
-		mov     esp, savedESP
-		mov     result, eax
-	}
-	return result;
-}
-#elif defined NV_CPU_X86_64
-
-/* Prototype of the helper assembly function */
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-int vsscanf_proxy_win64(const char * buffer, const char * format, va_list argPtr, __int64 count);
-
-#ifdef __cplusplus
-}
-#endif
-
-/* MASM64 version of the above vsscanf */
-static int vsscanf(const char * buffer, const char * format, va_list argPtr)
-{
-	// Get an upper bound for the # of args
-	__int64 count = 0;
-	const char *p = format;
-	while(1) {
-		char c = *(p++);
-		if(c==0) break;
-		if(c=='%' && (p[0]!='*' && p[0]!='%')) ++count;
-	}
-	return vsscanf_proxy_win64(buffer, format, argPtr, count);
-}
-
-/*#error vsscanf doesn't work on MSVC for x64*/
-#else
-#error Unknown processor for MSVC
-#endif
+extern int nv_vsscanf(const char *inp, char const *fmt0, va_list ap);
 #endif // NV_CC_MSVC
+
 
 using namespace nv;
 

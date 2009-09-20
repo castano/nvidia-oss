@@ -25,12 +25,13 @@ struct Thread::Private
 };
 
 #if NV_OS_WIN32
-__cdecl static void runThread(void * arg)
+/*static void __cdecl runThread(void * arg)
 {
 	Thread * thread = ((Thread *)arg);
 	thread->run();
 	thread->m->thread = NULL;
-}
+}*/
+typedef unsigned int (__stdcall * Start) (void *);
 #elif NV_OS_UNIX
 extern "C"
 {
@@ -57,11 +58,11 @@ void Thread::start()
 	if (m->thread == 0) // @@ Is this a race condition?
 	{
 	#if NV_OS_WIN32
-		m->thread = CreateThread(NULL, 0, 
-		m->thread = _beginthread(runThread, 0, NULL);
+		//m->thread = CreateThread(NULL, 0, 
+		//m->thread = _beginthread(runThread, 0, NULL);
 		
 		uint id;
-		m->thread = (HANDLE)_beginthreadex (0, 0, &threadLoop, this, 0, &id);
+		m->thread = (HANDLE)_beginthreadex (0, 0, Start(threadLoop), this, 0, &id);
 		nvDebugCheck(m->thread != NULL);
 	#elif NV_OS_UNIX
 		int result = pthread_create(&m->thread, NULL, Start(threadLoop), this);
@@ -75,7 +76,7 @@ void Thread::wait()
 #if NV_OS_WIN32
     DWORD status = WaitForSingleObject (m->thread, INFINITE);
     nvCheck (status ==  WAIT_OBJECT_0);
-    bool ok = CloseHandle (m->thread);
+    BOOL ok = CloseHandle (m->thread);
     nvCheck (ok);
 #elif NV_OS_UNIX
 	int result = pthread_join(m->thread, NULL); 
@@ -116,15 +117,27 @@ bool Thread::isRunning () const
 #endif
 }
 
+#if NV_OS_WIN32
+
+/*static*/ unsigned int Thread::threadLoop(Thread * thread)
+{
+	thread->run();
+	
+	// Reset thread handle.
+	thread->m->thread = NULL;
+
+	return 0;
+}
+
+#elif NV_OS_UNIX
+
 /*static*/ void Thread::threadLoop(Thread * thread)
 {
 	thread->run();
 	
 	// Reset thread handle.
-#if NV_OS_WIN32
-	thread->m->thread = NULL;
-#elif NV_OS_UNIX
 	thread->m->thread = 0;
 	pthread_exit(0);
-#endif
 }
+
+#endif

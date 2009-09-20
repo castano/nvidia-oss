@@ -5,6 +5,7 @@
 #if NV_OS_WIN32
 	#define WIN32_LEAN_AND_MEAN
 	#define VC_EXTRALEAN
+	#define _WIN32_WINNT 0x0400 // for TryEnterCriticalSection
 	#include <windows.h>
 #elif NV_OS_UNIX
 	#include <pthread.h>

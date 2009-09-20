@@ -30,7 +30,11 @@ namespace nv
 	
 	protected:
 		
+#if NV_OS_WIN32
+		static unsigned int __stdcall threadLoop(Thread *);
+#else
 		static void threadLoop(Thread *);
+#endif
 
 		virtual void run() = 0;
 	
