@@ -1,9 +1,10 @@
 // This code is in the public domain -- castano@gmail.com
 
 #include "FileSystem.h"
-#include <nvcore/nvcore.h>
 
 #if NV_OS_WIN32
+#define WIN32_LEAN_AND_MEAN
+#define VC_EXTRALEAN
 //#include <shlwapi.h> // PathFileExists
 #include <windows.h> // GetFileAttributes
 #include <direct.h> // _mkdir
